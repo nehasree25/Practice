@@ -7,6 +7,6 @@ import com.example.accounts.entity.Customer;
 
 @Repository
 public interface AccountsRepository extends JpaRepository<Customer, Long> {
-
+    
 }
 
