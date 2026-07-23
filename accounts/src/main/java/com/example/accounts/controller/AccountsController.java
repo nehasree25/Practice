@@ -11,10 +11,10 @@ import com.example.accounts.constants.AccountsConstants;
 import com.example.accounts.dto.CustomerDto;
 import com.example.accounts.dto.ResponseDto;
 @RestController
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/api/accounts")
 public class AccountsController {
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
