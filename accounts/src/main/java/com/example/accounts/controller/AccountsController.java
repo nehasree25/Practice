@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.accounts.constants.AccountsConstants;
 import com.example.accounts.dto.CustomerDto;
 import com.example.accounts.dto.ResponseDto;
+import com.example.accounts.service.IAccountsService;
+
+import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api/accounts")
+@AllArgsConstructor
 public class AccountsController {
-
+    private final IAccountsService accountsService;
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto) {
+        accountsService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new ResponseDto(AccountsConstants.STATUS_201, AccountsConstants.MESSAGE_201));
