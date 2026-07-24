@@ -1,6 +1,6 @@
 package com.example.accounts.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -11,13 +11,13 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class BaseEntity {
     @Column(updatable = false)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Column(updatable = false)
     private String createdBy;
 
     @Column(insertable = false)
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(insertable = false)
     private String updatedBy;
