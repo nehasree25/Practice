@@ -1,6 +1,7 @@
 package com.example.accounts.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,7 @@ import com.example.accounts.constants.AccountsConstants;
 import com.example.accounts.dto.CustomerDto;
 import com.example.accounts.entity.Accounts;
 import com.example.accounts.entity.Customer;
+import com.example.accounts.exception.CustomerAlreadyExistsMobileNumber;
 import com.example.accounts.mapper.CustomerMapper;
 import com.example.accounts.repository.AccountsRepository;
 import com.example.accounts.repository.CustomerRepository;
@@ -21,6 +23,10 @@ public class AccountsServiceImpl implements IAccountsService {
     private final CustomerRepository customerRepository;
     @Override
     public void createAccount(CustomerDto customerDto) {
+        Optional<Customer> existingCustomer = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
+        if (existingCustomer.isPresent()) {
+            throw new CustomerAlreadyExistsMobileNumber("Customer with mobile number " + customerDto.getMobileNumber() + " already exists.");
+        }
         Customer customer = CustomerMapper.toMapCustomer(customerDto);
         customer.setCreatedAt(LocalDateTime.now());
         customer.setCreatedBy("Anonymous");
