@@ -6,10 +6,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.accounts.constants.AccountsConstants;
+import com.example.accounts.dto.AccountsDto;
 import com.example.accounts.dto.CustomerDto;
 import com.example.accounts.entity.Accounts;
 import com.example.accounts.entity.Customer;
 import com.example.accounts.exception.CustomerAlreadyExistsMobileNumber;
+import com.example.accounts.mapper.AccountsMapper;
 import com.example.accounts.mapper.CustomerMapper;
 import com.example.accounts.repository.AccountsRepository;
 import com.example.accounts.repository.CustomerRepository;
@@ -48,5 +50,20 @@ public class AccountsServiceImpl implements IAccountsService {
 
         return newAccount;
     }
+    @Override
+    public CustomerDto fetchCustomer(String mobileNumber) {
+        // Logic to fetch account details
+        // This could involve retrieving account information from the database and mapping it to a DTO
 
+        Optional<Customer> customerOpt = customerRepository.findByMobileNumber(mobileNumber);
+        Customer customer = customerOpt.orElseThrow(() -> new RuntimeException("Customer not found"));
+        CustomerDto customerDto = CustomerMapper.toMapCustomerDto(customer);
+        Accounts account = accountsRepository.findByCustomerId(customer.getCustomerId());
+        if (account == null) {
+            throw new RuntimeException("Account not found");
+        }
+        AccountsDto accountsDto = AccountsMapper.toMapAccountsDto(account);
+        customerDto.setAccountsDto(accountsDto);
+        return customerDto;
+    }
 }

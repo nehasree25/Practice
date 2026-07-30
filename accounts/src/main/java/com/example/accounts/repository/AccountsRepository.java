@@ -7,6 +7,6 @@ import com.example.accounts.entity.Accounts;
 
 @Repository
 public interface AccountsRepository extends JpaRepository<Accounts, Long> {
-    
+    public Accounts findByCustomerId(Long customerId);
 }
 

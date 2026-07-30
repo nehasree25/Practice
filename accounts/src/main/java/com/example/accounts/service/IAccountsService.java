@@ -8,4 +8,5 @@ public interface IAccountsService {
      * @param customerDto The customer details for which the account needs to be created.
      */
     void createAccount(CustomerDto customerDto);
+    CustomerDto fetchCustomer(String mobileNumber);
 }
