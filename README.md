@@ -1,3 +1,2 @@
-# Spring Boot Practice
 
-This repository contains my Spring Boot practice projects
+This repository contains my practice projects
